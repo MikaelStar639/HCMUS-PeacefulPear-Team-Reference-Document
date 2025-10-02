@@ -462,6 +462,39 @@ struct trie{
 };
 \end{lstlisting}
 
+\section{SQRT Decomposition}
+\subsection{MO}
+\begin{lstlisting}
+struct query{
+	int l, r, id;
+}
+
+bool cmp(const query &a, const query &b){
+    if(a.l / S != b.l / S) return a.l < b.l;  
+
+    if((a.l / S) & 1)
+        return a.r < b.r;
+    else
+        return a.r > b.r
+}
+
+long long res = 0;
+
+void update(...);
+
+///////////////////////////////
+sort(q + 1, q + Q + 1, cmp);
+
+int l = 1, r = 0;
+for(int i = 1; i <= Q; i++){
+    while(l < q[i].l) update(a[l++], ...);
+    while(l > q[i].l) update(a[--l], ...);
+    while(r < q[i].r) update(a[++r], ...);
+    while(r > q[i].r) update(a[r--], ...);
+    ans[q[i].id] = res;
+}
+\end{lstlisting}
+
 \section{Graph}
 \subsection{Joint and Bridge}
 \begin{lstlisting}
@@ -901,6 +934,256 @@ void solve(){
 }
 \end{lstlisting}
 
+\section {DP}
+\subsection{Digit DP}
+\begin{lstlisting}
+int f(int id, bool sml, ...){
+    if (id < 0) return ...;
+    if (!sml && dp[id][...] != -1) return dp[id][...];
+
+    int lim = sml ? a[id] : 9;
+    int res = ...;
+    For(c, 0, lim){
+        update(res, f(id - 1, sml && c == lim, ...));
+    }
+    if (!sml) dp[id][...] = res;
+    return res;
+}
+
+int get(int x){
+    int n = 0;
+    while (x){
+        a[n++] = x % 10;
+        x /= 10;
+    }
+    return f(n - 1, 1, ...);
+}
+\end{lstlisting}
+
+\subsection{SOS DP}
+\begin{lstlisting}
+for (int k = 0; k < n; k++)
+    for (int mask = 0; mask < (1 << n); mask++)
+        if (mask & (1 << k)) 
+            dp[mask] += dp[mask ^ (1 << k)];
+\end{lstlisting}
+
+\subsection{DP DNC}
+
+Solving problems that have the form:
+\[
+dp(i, j) =
+\min\limits_{0 \le k \le j} \Big( dp(i - 1, k - 1) + C(k, j) \Big)
+\]
+The cost function has to satisfie the quadrangle inequality:
+$C(a, c) + C(b, d) \leq C(a, d) + C(b, c)$ for all $a \leq b \leq c \leq d$.
+
+Example:
+
+$C(j, i) = f(i - j)$ where $f$ is convex.
+
+$C(j, i) = (i - j)$
+
+$C(j, i) = (i - j)^2$
+\begin{lstlisting}
+int m, n;
+vector<int> dp_before(n + 1), dp_cur(n + 1);
+
+// cost function
+int C(int l, int r);
+
+// calculate dp_cur[l], ..., dp_cur[r]
+void compute(int l, int r, int optl, int optr) {
+    if (l > r) return;
+
+    int mid             = (l + r) >> 1;
+    pair<int, int> best = {INT_MAX, -1};
+    //calculate dp_cur[mid] & opt[i][mid] depend on dp_before and cost func
+    for (int k = optl; k <= min(mid, optr); ++k) {
+        minimize(best, {dp_before[k] + C(k, mid), k})
+    }
+    dp_cur[mid] = best.first;
+    int opt     = best.second;
+
+    compute(l, mid - 1, optl, opt);
+    compute(mid + 1, r, opt, optr);
+}
+
+int solve() {
+    for (int i = 0; i <= n; ++i)
+        dp_before[i] = C(0, i);
+
+    for (int i = 1; i < m; ++i) {
+        compute(0, n, 0, n);
+        dp_before = dp_cur;
+    }
+
+    return dp_before[n];
+}
+\end{lstlisting}
+
+\subsection{Convex Hull Trick}
+Adding lines $y = kx + m$ and querying minimum values at integer $x$.
+\begin{lstlisting}
+struct Line {
+    int k, m;
+    mutable int p;
+    
+    int eval(int x){
+    	return k * x + m;
+    }
+    
+    bool operator < (const Line& l) const {
+        return k < l.k;
+    }
+    bool operator < (const int &x) const {
+        return p < x;
+    }
+};
+ 
+struct ConvexHull : multiset<Line, less<>> {
+    int div(int a, int b) {
+        return a / b - ((a ^ b) < 0 && a % b);
+    }
+
+    bool bad(iterator x, iterator y) {
+        if(y == end()) { 
+            x->p = LINF;
+            return 0; 
+        }
+
+        if(x->k == y->k) x->p = x->m > y->m ? LINF : -LINF;
+        else x->p = div(y->m - x->m, x->k - y->k);
+
+        return x->p >= y->p;
+    }
+
+    void add(int k, int m) {
+        auto z = insert({k, m, 0}), y = z++, x = y;
+        while (bad(y, z)) z = erase(z);
+
+        if(x != begin() && bad(--x, y)) bad(x, y = erase(y));
+        while((y = x) != begin() && (--x)->p >= y->p) bad(x, erase(y));
+    }
+
+    int query(int x) {
+        assert(!empty());
+        Line l = *lower_bound(x);
+        return l.eval(x);
+    }
+} CH;
+
+//If you want maximum, just flip signs: 
+CH.add(-k, -m);
+int res = -CH.query(x);
+\end{lstlisting}
+
+\subsection{1D1D Optimization}
+Solving problems that have the form: 
+\[
+dp(i) = \min_{0 \leq j < i} \Big( dp(j) + C(j, i) \Big),
+\]
+\begin{lstlisting}
+struct item {
+  int l, r, p;
+};
+
+long long w(int j, int i) {
+    //cost function
+}
+
+void solve() {
+  deque<item> dq;
+  dq.push_back({1, n, 0});
+  for (int i = 1; i <= n; ++i) {
+    f[i]=f[dq.front().p]+w(dq.front().p,i);
+    ++dq.front().l;
+
+    if (dq.front().l > dq.front().r) {
+      dq.pop_front();
+    }
+
+    while (!dq.empty()) {
+      auto [l, r, p] = dq.back();
+      if (f[i] + w(i, l) < f[p] + w(p, l)) {
+        dq.pop_back();
+      }
+      else break;
+    }
+
+    if (dq.empty()) {
+      dq.push_back({i + 1, n, i});
+      // h[i+1]=h[i+2]=...=h[n]=i
+    }
+    else {
+      auto& [l, r, p] = dq.back();
+      int low = l, high = r;
+      int pos = r + 1, mid;
+      while (low <= high) {
+        mid = (low + high) / 2;
+        if (f[i] + w(i, mid) < f[p] + w(p, mid)) {
+          pos = mid, high = mid - 1;
+        }
+        else {
+          low = mid + 1;
+        }
+      }
+
+      r = pos - 1;
+      if (pos <= n) {
+        dq.push_back({pos, n, i});
+        // h[pos]=h[pos+1]=...=h[n]=i
+      }
+    }
+  }
+}
+\end{lstlisting}
+
+
+\subsection{Knapsack on Tree}
+Problem: Given a tree $T$ with $N$ vertices rooted at vertex $1$ 
+($1 \leq N \leq 5000$). 
+The $i$-th vertex has a value $C_i$ and a constraint $K_i$ 
+($|C_i| \leq 10^9$, $1 \leq K_i \leq N$). 
+Choose a subset of vertices such that, in the subtree of every vertex $i$, 
+there are at most $K_i$ chosen vertices, and the total sum of the chosen 
+vertices' values is maximized.
+
+\begin{lstlisting}
+void calc(int V){
+    int n = child[V].size();
+
+    for(int v_i: child[V]) {
+        calc(v_i);
+    }
+
+    for(int i = 0; i <= n; i++)fill(fV[i], fV[i] + N + 1, -INF);    
+    fV[0][0] = 0;                                                   
+
+    for(int i = 1; i <= n; i++){
+        int v_i = child[V][i - 1];
+        for(int a = 0; a <= sz[V]; a++){        
+            for(int b = 0; b <= sz[v_i]; b++){
+                fV[i][a+b] = max(fV[i][a+b], fV[i-1][a] + dp[v_i][b]);  
+        }
+        sz[V] += sz[v_i];
+    }
+
+    for(int k = 0; k <= N; k++){
+        if(k > K[V])dp[V][k] = -INF;                                
+        else {                                                      
+            if(k > 0)dp[V][k] = max(fV[n][k], fV[n][k-1] + C[V]);   
+            else dp[V][k] = fV[n][k];                               
+        }
+    }
+    sz[V]++;
+}
+
+long long solve() {
+    calc(1);
+    return *max_element(dp[1], dp[1] + N + 1);
+}
+\end{lstlisting}
 \section{Math}
 \subsection{Euler's totient function}
 \begin{lstlisting}
