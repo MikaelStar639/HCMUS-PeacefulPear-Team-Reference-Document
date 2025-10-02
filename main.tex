@@ -341,6 +341,127 @@ For(i, 2, n){ //1-indexed
 }
 \end{lstlisting}
 
+\subsection{Manacher}
+\begin{lstlisting}
+vector<int> manacher_odd(string s) {
+    int n = s.size();
+    s = "$" + s + "^";
+    vector<int> p(n + 2);
+    int l = 0, r = 1;
+    for(int i = 1; i <= n; i++) {
+        p[i] = min(r - i, p[l + (r - i)]);
+        while(s[i - p[i]] == s[i + p[i]]) {
+            p[i]++;
+        }
+        if(i + p[i] > r) {
+            l = i - p[i], r = i + p[i];
+        }
+    }
+    return vector<int>(begin(p) + 1, end(p) - 1);
+}
+
+vector<int> manacher(string s) {
+    string t;
+    for(auto c: s) {
+        t += string("#") + c;
+    }
+    auto res = manacher_odd(t + "#");
+    return vector<int>(begin(res) + 1, end(res) - 1);
+}
+\end{lstlisting}
+
+\subsection{Aho - Corasick}
+\begin{lstlisting}
+namespace Trie{
+	struct Node{
+		int child[26], p = -1, cnt = 0;
+		char pch;
+		int link = -1, go[26];
+		Node(int p = -1, char ch = '#'): p(p), pch(ch){
+			fill(begin(child), end(child), -1);
+        	fill(begin(go), end(go), -1);
+		}
+	};
+	
+	vector<Node> g(1);
+	
+	void add(string s){
+		int v = 0;
+		for (char t: s){
+			int c = t - 'a';
+			if (g[v].child[c] == -1){
+				g[v].child[c] = g.size();
+				g.emplace_back(v, t);
+			}
+			v = g[v].child[c];
+		}
+		g[v].cnt++;
+	}
+	
+	int go(int v, char c);
+	
+	int get_link(int v){
+		if (g[v].link == -1){
+			if (!v || !g[v].p) g[v].link = 0;
+			else g[v].link = go(get_link(g[v].p), g[v].pch);
+		}
+		return g[v].link;
+	}
+	
+	int go(int v, char t){
+		int c = t - 'a';
+		if (g[v].go[c] == -1){
+			if (g[v].child[c] != -1) g[v].go[c] = g[v].child[c];
+			else g[v].go[c] = (v == 0) ? 0 : go(get_link(v), t);
+		}
+		return g[v].go[c];
+	}
+}
+\end{lstlisting}
+\subsection{Aho - Corasick (BFS)}
+\begin{lstlisting}
+struct trie{
+	struct Node{
+		Node *child[26], *link;
+		int cnt = 0;
+		Node(){
+			cnt = 0;
+			rep(i, 26) child[i] = NULL;
+			link = NULL;
+		}
+	} *root = new Node();
+	
+	
+	void add(string &s){
+		Node* p = root;
+		for (char &t: s){
+			int c = t - 'a';
+			if (p->child[c] == NULL) p->child[c] = new Node();;
+			p = p->child[c];
+		}
+		p->cnt++;
+	}
+	
+	void AhoCorasick(){
+		root->link = root;
+		queue<Node*> q; q.push(root);
+		while (!q.empty()){
+			Node* p = q.front(); q.pop();
+			rep(i, 26) if (p->child[i]){
+				Node* k = p->link;
+				while (k != root && k->child[i] == NULL) k = k->link;
+				
+				if (k->child[i] && k != p) p->child[i]->link = k->child[i];
+				else p->child[i]->link = root;
+				
+				p->child[i]->cnt += p->child[i]->link->cnt;
+				q.push(p->child[i]);
+			}
+		}
+	}
+};
+\end{lstlisting}
+
 \section{Graph}
 \subsection{Joint and Bridge}
 \begin{lstlisting}
