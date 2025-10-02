@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1759409500.36722 "e:/HCMUS-PeacefulPear Team Reference Document/main.tex" "main.pdf" "main" 1759409501.79741 0
+["pdflatex"] 1759426434.62258 "e:/HCMUS-PeacefulPear Team Reference Document/main.tex" "main.pdf" "main" 1759426436.07905 0
   "C:/Users/MSI/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1759374650 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
   "C:/Users/MSI/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx1095.pk" 1759373788 28976 b5778e2851ee8a81c1f3de4b03dd340b ""
   "C:/Users/MSI/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecrm1000.pk" 1759373482 23808 e290c919493c4bebbedbd954f56faec0 ""
@@ -53,10 +53,10 @@
   "D:/miktex/tex/latex/titlesec/titlesec.sty" 1736608268 48766 87a17a4ef312a39cd43896e34a679a56 ""
   "D:/miktex/tex/latex/tools/multicol.sty" 1749468414 33259 db80f750a01491473161bd4d0f6986d2 ""
   "D:/miktex/tex/latex/xcolor/xcolor.sty" 1729265222 55384 b454dec21c2d9f45ec0b793f0995b992 ""
-  "e:/HCMUS-PeacefulPear Team Reference Document/main.tex" 1759409499 30806 da335ea5a048d47e3a7e7ac826bc3212 ""
-  "main.aux" 1759409501 4879 a46125857ec9fc8470ca2809875ba229 "pdflatex"
-  "main.tex" 1759409499 30806 da335ea5a048d47e3a7e7ac826bc3212 ""
-  "main.toc" 1759409501 2960 06b04743bf551b9499ed8d86ea92f5c4 "pdflatex"
+  "e:/HCMUS-PeacefulPear Team Reference Document/main.tex" 1759426431 40296 37dfc24894a2a8f449bff689752a4650 ""
+  "main.aux" 1759426435 6248 6c29e15a82d308452ed8c3b0e65cfa59 "pdflatex"
+  "main.tex" 1759426431 40296 37dfc24894a2a8f449bff689752a4650 ""
+  "main.toc" 1759426435 3837 5688a59860244b4bb77f9227df47dcce "pdflatex"
   (generated)
   "main.aux"
   "main.log"

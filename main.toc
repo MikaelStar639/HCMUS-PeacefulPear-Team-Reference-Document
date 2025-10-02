@@ -43,4 +43,16 @@
 \contentsline {subsection}{\numberline {6.6}Chinese Remainder Theorem}{11}{}%
 \contentsline {subsection}{\numberline {6.7}Rabin-Miller primality test}{11}{}%
 \contentsline {subsection}{\numberline {6.8}Combination}{11}{}%
-\contentsline {section}{\numberline {7}Geometry}{11}{}%
+\contentsline {subsection}{\numberline {6.9}Fast Fourier Transform}{11}{}%
+\contentsline {subsection}{\numberline {6.10}Number Theory Transform}{12}{}%
+\contentsline {section}{\numberline {7}Geometry}{12}{}%
+\contentsline {subsection}{\numberline {7.1}Dot Product}{12}{}%
+\contentsline {subsection}{\numberline {7.2}Angle}{13}{}%
+\contentsline {subsection}{\numberline {7.3}Cross Product}{13}{}%
+\contentsline {subsection}{\numberline {7.4}Distance from a Point to a line}{13}{}%
+\contentsline {subsection}{\numberline {7.5}Template 1}{13}{}%
+\contentsline {subsection}{\numberline {7.6}Intersection of 2 lines and bla bla bla (I have no time bro)}{13}{}%
+\contentsline {subsection}{\numberline {7.7}Circle passing through 3 points}{13}{}%
+\contentsline {subsection}{\numberline {7.8}Symmetry}{14}{}%
+\contentsline {subsection}{\numberline {7.9}Rotation}{14}{}%
+\contentsline {subsection}{\numberline {7.10}Area of a Polygon}{14}{}%

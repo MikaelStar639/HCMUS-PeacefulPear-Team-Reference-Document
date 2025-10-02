@@ -40,7 +40,9 @@
 
 % ---------- Table of Contents ----------
 \setcounter{tocdepth}{2}
+\begin{multicols}{2}
 \tableofcontents
+\end{multicols}
 \newpage
 
 % ---------- Main Content ----------
@@ -1386,7 +1388,7 @@ bool RabinMiller(ll n){
 
 \subsection{Combination}
 \begin{lstlisting}
-//recursive version:
+//DP version:
 void preCompute(){
     for (int i = 0; i <= n; i++){
         C[i][0] = 1;
@@ -1403,9 +1405,344 @@ int C(int n, int k){
 }
 \end{lstlisting}
 
+\subsection{Fast Fourier Transform}
+\begin{lstlisting}
+
+
+
+namespace FFT{
+    
+    #define cd complex<long double>
+    #define vc vector<cd>
+
+    const long double PI = acosl(-1.0L);
+    const int N = 1e6 + 5;
+    int rev[N];
+
+    void fft(vc &a, bool inverse = 0){
+        int n = sz(a);
+        rep(i, n) if (i < rev[i]){
+            swap(a[i], a[rev[i]]);
+        }
+
+        for (int len = 2; len <= n; len <<= 1){
+            cd wn = polar(1.0L, PI/len * (inverse ? -2 : 2));
+            for (int i = 0; i < n; i += len){
+                cd w = 1;
+                rep(j, len/2){
+                    cd u = a[i + j];
+                    cd v = a[i + j + len/2] * w;
+                    a[i + j] = u + v;
+                    a[i + j + len/2] = u - v;
+                    w *= wn;
+                }
+            }
+        }
+
+        if (inverse){
+            for (cd &x: a){
+                x /= n;
+            }
+        }
+    }
+
+    vi operator * (const vi &a, const vi &b){
+        if (a.empty() || b.empty()) return {};
+
+        vc fa(all(a));
+        vc fb(all(b));
+
+        int n = 1, L = 0;
+        while (n < sz(a) + sz(b) - 1) n <<= 1, ++L;
+        rep(i, n){
+            rev[i] = (rev[i >> 1] | (i & 1) << L) >> 1;
+        }
+
+
+        fa.resize(n); fb.resize(n);
+
+        fft(fa); fft(fb);
+
+        rep(i, n) fa[i] *= fb[i];
+        fft(fa, 1);
+
+        n = sz(a) + sz(b) - 1;
+        vi res(n);
+        rep(i, n) res[i] = (int)(real(fa[i]) + 0.5);
+        
+        return res;
+    }
+}
+\end{lstlisting}
+
+\subsection{Number Theory Transform}
+\begin{lstlisting}
+namespace NTT{
+    const int MOD = 998244353;
+    const int g = 3; //primitive root
+    int rev[N];
+
+    void ntt(vi &a, bool inverse = 0){
+        int n = sz(a);
+        rep(i, n) if (i < rev[i]){
+            swap(a[i], a[rev[i]]);
+        }
+
+        for (int len = 2; len <= n; len <<= 1){
+            int wn = Pow(g, (MOD - 1)/len);
+            if (inverse) wn = Pow(wn, MOD - 2);
+            
+            for (int i = 0; i < n; i += len){
+                int w = 1;
+                rep(j, len/2){
+                    int u = a[i + j];
+                    int v = mul(w, a[i + j + len/2]);
+
+                    a[i + j] = sum(u, v);
+                    a[i + j + len/2] = dif(u, v);
+
+                    w = mul(w, wn);
+                }
+            }
+        }
+
+        if (inverse){
+            int div_n = Pow(n, MOD - 2);
+            rep(i, n) a[i] = mul(a[i], div_n);
+        }
+    }
+
+    vi operator * (const vi &a, const vi &b){
+        if (a.empty() || b.empty()) return {};
+
+        vi fa(all(a)), fb(all(b));
+
+        int n = 1, L = 0;
+        while (n < sz(a) + sz(b) - 1) n <<= 1, ++L;
+        rep(i, n){
+            rev[i] = (rev[i >> 1] | (i & 1) << L) >> 1;
+        }
+
+        fa.resize(n); fb.resize(n);
+        ntt(fa); ntt(fb);
+
+        rep(i, n) fa[i] = mul(fa[i], fb[i]);
+        ntt(fa, 1);
+
+        fa.resize(sz(a) + sz(b) - 1);
+        return fa;
+    }
+}
+\end{lstlisting}
 
 \section{Geometry}
-\
+\subsection{Dot Product}
+\begin{lstlisting}
+//remember that u * v = 0 -> u is perdendicular with v
+//or (u, v) = pi/2
+double dotProduct(Vector u, Vector v){
+    return u.x * v.x + u.y * v.y; 
+}
+\end{lstlisting}
+\subsection{Angle}
+\begin{lstlisting}
+//u * v = |u| * |v| * cos(theta)
+//-> theta = acos (u * v / (|u| * |v|))
+double Cos(Vector u, Vector v){
+    return dotProduct(u, v)/(u.len * v.len);
+}
+
+double theta(Vector u, Vector v){
+    return acos(Cos(u, v));
+}
+\end{lstlisting}
+
+\subsection{Cross Product}
+\begin{lstlisting}
+//u * v = |u| * |v| * sin(theta)
+//u * v = u.x * v.y - u.y * v.x
+//|u * v| = area of a parallelogram formed by adjacent vectors u and v 
+//= double the area of the triangle 
+double crossProduct(Vector u, Vector v){
+    return u.x * v.y - u.y * v.x;
+}
+\end{lstlisting}
+
+\subsection{Distance from a Point to a line}
+$d(C, AB) = |\vec{AB} * \vec{AC}|/AB $
+\begin{lstlisting}
+// Compute the distance from AB to C
+// if isSegment is true, AB is a segment, not a line.
+double linePointDist(Point A, Point B, Point C, bool isSegment){
+    double res = abs(cross(A, B, C)) / dist(A, B);
+    if (isSegment){
+        int dot1 = dot(B, A, C);
+        if (dot1 < 0) return distance(B, C);
+        int dot2 = dot(A, B, C);
+        if (dot2 < 0) return distance(A, C);
+    }
+    return res;
+}
+\end{lstlisting}
+
+\subsection{Template 1}
+\begin{lstlisting}
+struct vec {
+    db x, y;
+    vec(db _x = 0, db _y = 0) : x(_x), y(_y) {}
+    db dot(const vec &other) { // Compute the dot product
+        return x * other.x + y * other.y;
+    }
+    db cross(const vec &other) { // Compute the cross product
+        return x * other.y - y * other.x;
+    }
+    db length() const {
+        return sqrt(x * x + y * y);
+    }
+};
+using point = vec; // or use 'typedef vec point'
+vec operator - (const point &B, const point &A) { // vecAB = B - A
+    return vec(B.x - A.x, B.y - A.y);
+}
+
+// if isSegment is true, AB is a segment, not a line.
+db linePointDist(const point &A, const point &B, const point &C, bool isSegment) {
+    db dist = abs((B - A).cross(C - A)) / (A - B).length();
+    if (isSegment) {
+        db dot1 = (A - B).dot(C - B);
+        if (dot1 < 0) return (B - C).length();
+        db dot2 = (B - A).dot(C - A);
+        if (dot2 < 0) return (A - C).length();
+    }
+    return dist;
+}
+\end{lstlisting}
+
+\subsection{Intersection of 2 lines and bla bla bla (I have no time bro)}
+Lines will have the form: $ax + by = c$.
+
+$\vec{AB} \times \vec{AC} > 0 \Rightarrow  A, B, C$ are counterclockwise.
+
+$\vec{AB} \times \vec{AC} < 0 \Rightarrow  A, B, C$ are clockwise.
+
+$\vec{AB} \times \vec{AC} = 0 \Rightarrow  A, B, C$ are collinear.
+
+\begin{lstlisting}
+const double eps = 1e-9;
+int sign(double x) {
+    if (x > eps) return 1;
+    if (x < -eps) return -1;
+    return 0;
+}
+double cross(Vec AB, Vec AC) {
+    return AB.x * AC.y - AC.x * AB.y;
+}
+double dot(Vec AB, Vec AC) {
+    return AB.x * AC.x + AB.y * AC.y;
+}
+//intersection of 2 segments
+bool intersect(Point A, Point B, Point C, Point D) {
+    int ABxAC = sign(cross(B - A, C - A));
+    int ABxAD = sign(cross(B - A, D - A));
+    int CDxCA = sign(cross(D - C, A - C));
+    int CDxCB = sign(cross(D - C, B - C));
+    if (ABxAC == 0 || ABxAD == 0 || CDxCA == 0 || CDxCB == 0) {
+        // C on segment AB if ABxAC = 0 and CA.CB <= 0
+        if (ABxAC == 0 && sign(dot(A - C, B - C)) <= 0) return true;
+        if (ABxAD == 0 && sign(dot(A - D, B - D)) <= 0) return true;
+        if (CDxCA == 0 && sign(dot(C - A, D - A)) <= 0) return true;
+        if (CDxCB == 0 && sign(dot(C - B, D - B)) <= 0) return true;
+        return false;
+    }
+    return (ABxAC * ABxAD < 0 && CDxCA * CDxCB < 0);
+}
+\end{lstlisting}
+
+\subsection{Circle passing through 3 points}
+\begin{lstlisting}
+struct Point {
+    double x, y;
+    Point() { x = y = 0.0; }
+    Point(double x, double y) : x(x), y(y) {}
+
+    Point operator + (const Point &a) const { return Point(x + a.x, y + a.y); }
+    Point operator - (const Point &a) const { return Point(x - a.x, y - a.y); }
+    Point operator * (double k) const { return Point(x * k, y * k); }
+    Point operator / (double k) const { return Point(x / k, y / k); }
+};
+
+struct Line { // Ax + By = C
+    double a, b, c;
+    Line(double a = 0, double b = 0, double c = 0) : a(a), b(b), c(c) {}
+    Line(Point A, Point B) {
+        a = B.y - A.y;
+        b = A.x - B.x;
+        c = a * A.x + b * A.y;
+    }
+};
+
+Line Perpendicular_Bisector(Point A, Point B) {
+    Point M = (A + B) / 2;
+    Line d = Line(A, B);
+    // the equation of a perpendicular line has the form: -Bx + Ay = D
+    double D = -d.b * M.x + d.a * M.y;
+    return Line(-d.b, d.a, D);
+}
+
+//Intersection of 2 Perpendicular Bisector is the center of the circle
+\end{lstlisting}
+
+\subsection{Symmetry}
+\begin{lstlisting}
+struct Line { // Ax + By = C
+    double a, b, c;
+    Line(double a = 0, double b = 0, double c = 0) : a(a), b(b), c(c) {}
+};
+
+Point intersect(Line d1, Line d2) {
+    double det = d1.a * d2.b - d2.a * d1.b;
+    // det != 0 because d1 is perpendicular to d2
+    return Point((d2.b * d1.c - d1.b * d2.c) / det, (d1.a * d2.c - d2.a * d1.c) / det);
+}
+
+Point Symmetry(Point X, Line d) {
+    // the equation of a perpendicular line has the form: -Bx + Ay = D
+    double D = -d.b * X.x + d.a * X.y;
+    Line d2 = Line(-d.b, d.a, D);
+    Point Y = intersect(d, d2);
+    Point X2 = Point(2 * Y.x - X.x, 2 * Y.y - X.y);
+    return X2;
+}
+\end{lstlisting}
+
+\subsection{Rotation}
+To rotate $A(x, y)$ counterclockwise by an angle theta around the origin, we can easily use this formula:
+
+$x' = xcos\theta - ysin\theta$
+
+
+$y' = xsin\theta + ycos\theta$
+\begin{lstlisting}
+Point Rotations(Point A, Point C, double rad) {
+    Point A2 = A - C;
+    Point B2 = Point(A2.x * cos(rad) - A2.y * sin(rad), A2.x * sin(rad) + A2.y * cos(rad));
+    Point B = B2 + C;
+    return B;
+}
+\end{lstlisting}
+
+\subsection{Area of a Polygon}
+\begin{lstlisting}
+double polygonArea(const vector<Point>& poly) {
+    int n = poly.size();
+    double area = 0.0;
+    for (int i = 0; i < n; i++) {
+        int j = (i + 1) % n;
+        area += poly[i].x * poly[j].y - poly[j].x * poly[i].y;
+    }
+    return fabs(area) / 2.0;
+}
+\end{lstlisting}
 
 \end{multicols*}
 
