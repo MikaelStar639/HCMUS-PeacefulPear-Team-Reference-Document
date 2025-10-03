@@ -52,6 +52,16 @@ INPUT D:\miktex\tex\latex\titlesec\titlesec.sty
 INPUT D:\miktex\tex\latex\titlesec\titlesec.sty
 INPUT D:\miktex\tex\latex\fancyhdr\fancyhdr.sty
 INPUT D:\miktex\tex\latex\fancyhdr\fancyhdr.sty
+INPUT D:\miktex\tex\latex\amsmath\amsmath.sty
+INPUT D:\miktex\tex\latex\amsmath\amsmath.sty
+INPUT D:\miktex\tex\latex\amsmath\amsopn.sty
+INPUT D:\miktex\tex\latex\amsmath\amstext.sty
+INPUT D:\miktex\tex\latex\amsmath\amstext.sty
+INPUT D:\miktex\tex\latex\amsmath\amsgen.sty
+INPUT D:\miktex\tex\latex\amsmath\amsgen.sty
+INPUT D:\miktex\tex\latex\amsmath\amsbsy.sty
+INPUT D:\miktex\tex\latex\amsmath\amsbsy.sty
+INPUT D:\miktex\tex\latex\amsmath\amsopn.sty
 INPUT D:\miktex\tex\latex\listings\lstlang1.sty
 INPUT D:\miktex\tex\latex\listings\lstlang1.sty
 INPUT D:\miktex\tex\latex\listings\lstlang1.sty
@@ -82,6 +92,9 @@ INPUT D:\miktex\fonts\tfm\public\cm\cmmi6.tfm
 INPUT D:\miktex\fonts\tfm\public\cm\cmsy10.tfm
 INPUT D:\miktex\fonts\tfm\public\cm\cmsy8.tfm
 INPUT D:\miktex\fonts\tfm\public\cm\cmsy6.tfm
+INPUT D:\miktex\fonts\tfm\public\cm\cmex10.tfm
+INPUT D:\miktex\fonts\tfm\public\amsfonts\cmextra\cmex8.tfm
+INPUT D:\miktex\fonts\tfm\public\amsfonts\cmextra\cmex7.tfm
 OUTPUT main.toc
 INPUT D:\miktex\fonts\tfm\jknappen\ec\ecrm1000.tfm
 OUTPUT main.pdf
