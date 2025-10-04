@@ -1821,6 +1821,19 @@ vector<Point> convexHull(vector<Point> p, int n) {
 }
 \end{lstlisting}
 
+\subsection{More}
+\begin{itemize}
+    \item Number of triangles with no polygon side (no two vertices adjacent): $n( n - 4 )( n - 5 ) / 6.$
+    \item Number of intersection points of diagonals in a convex n-gon: $n(n-1)(n-2)(n-3) / 24$
+    \item Number of triangles formed by one diagonal + a third vertex: $\tbinom{n}{2} (n - 4)$
+    \item Partitions of the polygon into triangles using non-crossing diagonals: $C_{n-2} = \frac{1}{n - 1} \binom{2n - 4}{n - 2}$ where $C_k$ is the $k$-th Catalan number.
+    \item Number of ways to choose a set of non-crossing diagonals $C_{n - 2}$
+    \item Number of ways to choose $k$ non-crossing diagonals in a convex $= N(n, k) = \frac{1}{k + 1} \binom{n - 3k}{k}.$
+    \item You are given a convex polygon with $n$ sides. You then connect all of the points by drawing lines among the diagonals of the polygon, then cut through the lines all at once. The maximum number of pieces: $R(N) = (n - 1)(n - 2)(n^2 - 3n + 12)/24$
+\end{itemize}
+
+
+
 \section{Algebra}
 \subsection{Matrix Multiplication}
 
