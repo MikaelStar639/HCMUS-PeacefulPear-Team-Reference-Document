@@ -68,6 +68,12 @@
 \contentsline {subsection}{\numberline {9.1}Formula}{16}{}%
 \contentsline {subsection}{\numberline {9.2}Catalan}{16}{}%
 \contentsline {subsection}{\numberline {9.3}Derangement}{16}{}%
-\contentsline {section}{\numberline {10}Template}{17}{}%
+\contentsline {subsection}{\numberline {9.4}Classical Sums}{17}{}%
+\contentsline {subsection}{\numberline {9.5}Useful Identities}{17}{}%
+\contentsline {subsection}{\numberline {9.6}Stirling Numbers}{17}{}%
+\contentsline {section}{\numberline {10}Others}{17}{}%
 \contentsline {subsection}{\numberline {10.1}Test?}{17}{}%
 \contentsline {subsection}{\numberline {10.2}Big Int}{17}{}%
+\contentsline {subsection}{\numberline {10.3}CODE::BLOCK Set Up}{19}{}%
+\contentsline {subsection}{\numberline {10.4}Template}{19}{}%
+\contentsline {subsection}{\numberline {10.5}CODE::BLOCK shortcuts}{19}{}%

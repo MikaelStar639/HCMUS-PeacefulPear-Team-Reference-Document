@@ -2070,7 +2070,47 @@ for (int i = 1; i <= n; i++) {
 //dp[n] = (n - 1)(dp[n - 2] + dp[n - 1])
 \end{lstlisting}
 
-\section{Template}
+\subsection{Classical Sums}
+\[
+\sum_{k=0}^n \binom{n}{k} = 2^n
+\]
+\[
+\sum_{k=0}^n k \binom{n}{k} = n \cdot 2^{n-1}, 
+\quad
+\sum_{k=0}^n k^2 \binom{n}{k} = n(n+1) \cdot 2^{n-2}
+\]
+\[
+\sum_{k=0}^n (-1)^k \binom{n}{k} = 0 \quad (n>0)
+\]
+\[
+\sum_{k=0}^n \binom{n}{k}^2 = \binom{2n}{n}
+\]
+\[
+\sum_{k=0}^r \binom{m}{k}\binom{n}{r-k} = \binom{m+n}{r} \quad \text{(Vandermonde)}
+\]
+
+\subsection{Useful Identities}
+\[
+\sum_{k=r}^n \binom{k}{r} = \binom{n+1}{r+1}
+\quad \text{(Hockey-stick)}
+\]
+\[
+\sum_{k=0}^r (-1)^k \binom{r}{k}\binom{n+k}{m} = \binom{n}{m-r}
+\]
+\[
+\binom{n}{k_1, k_2, \dots, k_m} = \frac{n!}{k_1! k_2! \cdots k_m!}, 
+\quad \sum k_i = n
+\]
+
+\subsection{Stirling Numbers}
+\[
+S(n,k) = S(n-1,k-1) + k S(n-1,k)
+\]
+\[
+x^n = \sum_{k=0}^n S(n,k)(x)_k, \quad (x)_k = x(x-1)\cdots(x-k+1)
+\]
+
+\section{Others}
 \subsection{Test?}
 \begin{lstlisting}
 ll rand(ll l, ll r){
@@ -2294,6 +2334,42 @@ struct BigInt {
 };
 
 \end{lstlisting}
+
+\subsection{CODE::BLOCK Set Up}
+*
+
+Settings -> Compiler… -> Selected compiler: GNU GCC Compiler
+
+Have g++ follow the C++17 ISO C++ language standard [-std=c++17]
+
+Enable all common compiler warnings (-Wall)
+
+Enable extra compiler warnings (-Wextra)
+
+-O2
+
+\subsection{Template}
+
+Settings -> Editor -> Abbreviations -> Add
+
+Ctrl + J to use
+
+\subsection{CODE::BLOCK shortcuts}
+*
+
+\begin{itemize}
+    \item Ctrl + Space → Autocomplete (symbols, functions, variables).
+    \item Ctrl + Shift + C → Comment selected block.
+    \item Ctrl + Shift + X → Uncomment selected block.
+    \item Ctrl + D → Duplicate current line/selection.
+    \item Ctrl + Shift + ↑ / ↓ → Move current line/selection up or down.
+    \item Ctrl + L → Delete current line.
+    \item Ctrl + Shift + K → Insert new line above current line.
+    \item Ctrl + Shift + J → Insert new line below current line.
+    \item Ctrl + G → Go to line.
+    \item Ctrl + Shift + V → Paste without indentation (useful when pasting code from outside).
+\end{itemize}
+
 \end{multicols*}
 
 \end{document}

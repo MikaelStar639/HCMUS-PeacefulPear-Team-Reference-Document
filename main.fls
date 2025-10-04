@@ -1,6 +1,6 @@
-PWD e:\HCMUS-PeacefulPear Team Reference Document
+PWD e:\ICPC training\nah\HCMUS-PeacefulPear-Team-Reference-Document
 INPUT C:\Users\MSI\AppData\Local\MiKTeX\miktex\data\le\pdftex\pdflatex.fmt
-INPUT e:\HCMUS-PeacefulPear Team Reference Document\main.tex
+INPUT e:\ICPC training\nah\HCMUS-PeacefulPear-Team-Reference-Document\main.tex
 OUTPUT main.log
 INPUT D:\miktex\tex\latex\base\article.cls
 INPUT D:\miktex\tex\latex\base\article.cls
@@ -103,6 +103,8 @@ INPUT D:\miktex\fonts\tfm\jknappen\ec\ectt1095.tfm
 INPUT D:\miktex\fonts\tfm\jknappen\ec\ectt0900.tfm
 INPUT D:\miktex\fonts\tfm\jknappen\ec\ecrm0900.tfm
 INPUT D:\miktex\fonts\tfm\jknappen\ec\tcrm1095.tfm
+INPUT D:\miktex\fonts\tfm\jknappen\ec\ecrm0800.tfm
+INPUT D:\miktex\fonts\tfm\jknappen\ec\ecrm0600.tfm
 INPUT main.aux
 INPUT C:\Users\MSI\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\tcrm1095.pk
 INPUT C:\Users\MSI\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\tcrm1095.pk
