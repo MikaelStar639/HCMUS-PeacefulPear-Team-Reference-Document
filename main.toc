@@ -67,23 +67,24 @@
 \contentsline {subsection}{\numberline {7.13}Pick Theorem}{17}{}%
 \contentsline {subsection}{\numberline {7.14}Convex Hull (Graham scan)}{17}{}%
 \contentsline {subsection}{\numberline {7.15}Convex Hull (Monotone chain algorithm)}{18}{}%
-\contentsline {subsection}{\numberline {7.16}More}{18}{}%
-\contentsline {section}{\numberline {8}Algebra}{18}{}%
-\contentsline {subsection}{\numberline {8.1}Matrix Multiplication}{18}{}%
-\contentsline {subsection}{\numberline {8.2}Fast Fourier Transform}{19}{}%
-\contentsline {subsection}{\numberline {8.3}Number Theory Transform}{19}{}%
-\contentsline {section}{\numberline {9}Combinatoric}{20}{}%
-\contentsline {subsection}{\numberline {9.1}Formula}{20}{}%
-\contentsline {subsection}{\numberline {9.2}Catalan}{20}{}%
-\contentsline {subsection}{\numberline {9.3}Derangement}{20}{}%
-\contentsline {subsection}{\numberline {9.4}Classical Sums}{20}{}%
-\contentsline {subsection}{\numberline {9.5}Useful Identities}{20}{}%
-\contentsline {subsection}{\numberline {9.6}Stirling Numbers}{20}{}%
+\contentsline {subsection}{\numberline {7.16}Find Fermat Point}{18}{}%
+\contentsline {subsection}{\numberline {7.17}More}{19}{}%
+\contentsline {section}{\numberline {8}Algebra}{19}{}%
+\contentsline {subsection}{\numberline {8.1}Matrix Multiplication}{19}{}%
+\contentsline {subsection}{\numberline {8.2}Fast Fourier Transform}{20}{}%
+\contentsline {subsection}{\numberline {8.3}Number Theory Transform}{20}{}%
+\contentsline {section}{\numberline {9}Combinatoric}{21}{}%
+\contentsline {subsection}{\numberline {9.1}Formula}{21}{}%
+\contentsline {subsection}{\numberline {9.2}Catalan}{21}{}%
+\contentsline {subsection}{\numberline {9.3}Derangement}{21}{}%
+\contentsline {subsection}{\numberline {9.4}Classical Sums}{21}{}%
+\contentsline {subsection}{\numberline {9.5}Useful Identities}{21}{}%
+\contentsline {subsection}{\numberline {9.6}Stirling Numbers}{21}{}%
 \contentsline {section}{\numberline {10}Others}{21}{}%
 \contentsline {subsection}{\numberline {10.1}Test?}{21}{}%
-\contentsline {subsection}{\numberline {10.2}Big Int}{21}{}%
-\contentsline {subsection}{\numberline {10.3}CODE::BLOCK Set Up}{22}{}%
-\contentsline {subsection}{\numberline {10.4}Template}{22}{}%
-\contentsline {subsection}{\numberline {10.5}CODE::BLOCK shortcuts}{22}{}%
-\contentsline {subsection}{\numberline {10.6}Multiplication Function}{23}{}%
-\contentsline {subsection}{\numberline {10.7}Random Function}{23}{}%
+\contentsline {subsection}{\numberline {10.2}Big Int}{22}{}%
+\contentsline {subsection}{\numberline {10.3}CODE::BLOCK Set Up}{23}{}%
+\contentsline {subsection}{\numberline {10.4}Template}{23}{}%
+\contentsline {subsection}{\numberline {10.5}CODE::BLOCK shortcuts}{23}{}%
+\contentsline {subsection}{\numberline {10.6}Multiplication Function}{24}{}%
+\contentsline {subsection}{\numberline {10.7}Random Function}{24}{}%

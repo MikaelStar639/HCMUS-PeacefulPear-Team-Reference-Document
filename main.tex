@@ -320,6 +320,7 @@ double max_f(double left, double right) {
     return f(left);
 }    
 \end{lstlisting}
+
 \section {String}
 \subsection{Trie 1}
 \begin{lstlisting}
@@ -2236,7 +2237,98 @@ vector<Point> convexHull(vector<Point> p, int n) {
     return hull;
 }
 \end{lstlisting}
+\subsection{Find Fermat Point}
+\begin{itemize}
+    \item The Fermat Point is the point P such that the total distance PA+PB+PC is minimal.
+    \item If one angle $\geq 120^o$, then the Fermat point is simply the vertex with the largest angle.
+    \item else, the Fermat point P lies inside the triangle and each pair of lines PA, PB, PC forms a 120° angle.
+\end{itemize}
+\begin{lstlisting}
+//Local Search:
+double len = 2000;  
+int N_ITERATION = 10000;  
+double RATE = 0.99;  
 
+for (int turn = 0; turn < N_ITERATION; turn++) {  
+
+	Point best = P;  
+	double bestDist = best PA + PB + PC;
+
+	for (double angle = 0; angle < 2 * PI; angle += (2 * PI) / 100) {
+		Point dir = Point(0, len).rotate(angle); //vertor 
+		
+		Point Q = P + dir;  // Q = P'
+		
+		if (QA + QB + QC < bestDist) {
+            best = Q;
+            bestDist = QA + QB + QC;
+        }
+    }
+	P = best;
+}
+//easier way:
+P = centroid(A, B, C)
+step = max(dist(P, A), dist(P, B), dist(P, C))
+while step > eps:
+    found = false
+    for dir in 4 directions:
+        Q = P + step * dir
+        if f(Q) < f(P):
+            P = Q
+            found = true
+    if not found:
+        step *= 0.5
+
+//for n points:
+Point weiszfeld(vector<Point> &a, long double eps = 1e-9) {
+    int n = a.size();
+    Point p = {0, 0};
+    for (auto &pt : a) p.x += pt.x, p.y += pt.y;
+    p.x /= n; p.y /= n;
+    while (true) {
+        long double numx = 0, numy = 0, denom = 0;
+        bool nearPoint = false;
+
+        for (auto &pt : a) {
+            long double d = dist(p, pt);
+            if (d < eps) { 
+                p = pt;
+                nearPoint = true;
+                break;
+            }
+            long double w = 1.0 / d;
+            numx += pt.x * w;
+            numy += pt.y * w;
+            denom += w;
+        }
+
+        if (nearPoint) break;
+
+        Point np = {numx / denom, numy / denom};
+        if (dist(np, p) < eps) return np;
+        p = np;
+    }
+    return p;
+}
+
+//check 120
+auto ang = [&](int i) {
+    Point A = a[i], B = a[(i+1)%3], C = a[(i+2)%3];
+    long double b = dist(A, C), c = dist(A, B), a_ = dist(B, C);
+    long double cosA = (b*b + c*c - a_*a_) / (2*b*c);
+    return acosl(cosA);
+};
+for (int i = 0; i < 3; i++) {
+    if (ang(i) >= 2.0L * M_PI / 3.0L) {
+        cout << fixed << setprecision(9)
+                << a[i].x << " " << a[i].y << "\n";
+        return 0;
+    }
+}
+
+
+
+\end{lstlisting}
 \subsection{More}
 \begin{itemize}
     \item Number of triangles with no polygon side (no two vertices adjacent): $n( n - 4 )( n - 5 ) / 6.$
