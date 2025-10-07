@@ -1026,6 +1026,81 @@ void solve(){
 }
 \end{lstlisting}
 
+\subsection{Steiner Tree}
+\begin{lstlisting}
+int main() {
+    int n, m, k;
+    cin >> n >> m >> k;
+    vector<vector<Edge>> g(n);
+    for (int i = 0; i < m; i++) {
+        int u, v, w;
+        cin >> u >> v >> w;
+        --u; --v;
+        g[u].push_back({v, w});
+        g[v].push_back({u, w});
+    }
+
+    vector<int> term(k);
+    for (int i = 0; i < k; i++) {
+        cin >> term[i];
+        --term[i];
+    }
+
+    int FULL = 1 << k;
+    vector<vector<int>> dp(FULL, vector<int>(n, INF));
+
+    for (int i = 0; i < k; i++)
+        dp[1 << i][term[i]] = 0;
+
+    for (int mask = 1; mask < FULL; mask++) {
+        for (int sub = (mask - 1) & mask; sub; sub = (sub - 1) & mask) {
+            for (int v = 0; v < n; v++)
+                dp[mask][v] = min(dp[mask][v], dp[sub][v] + dp[mask ^ sub][v]);
+        }
+
+        priority_queue<pair<int,int>, vector<pair<int,int>>, greater<>> pq;
+        for (int v = 0; v < n; v++)
+            if (dp[mask][v] < INF) pq.push({dp[mask][v], v});
+
+        while (!pq.empty()) {
+            auto [d, v] = pq.top(); pq.pop();
+            if (d != dp[mask][v]) continue;
+            for (auto &e : g[v]) {
+                if (dp[mask][e.to] > d + e.w) {
+                    dp[mask][e.to] = d + e.w;
+                    pq.push({dp[mask][e.to], e.to});
+                }
+            }
+        }
+    }
+
+    int ans = INF;
+    for (int v = 0; v < n; v++)
+        ans = min(ans, dp[FULL - 1][v]);
+
+    cout << ans << "\n";
+}
+
+//trace:
+void trace(int mask, int v, set<pair<int,int>> &edges) {
+    int sub = from_mask[mask][v];
+    int u = parent[mask][v];
+
+    if (sub != -1) {
+        trace(sub, v, edges);
+        trace(mask ^ sub, v, edges);
+        return;
+    }
+
+    if (u != -1) {
+        edges.insert({min(u, v), max(u, v)});
+        trace(mask, u, edges);
+        return;
+    }
+}
+
+\end{lstlisting}
+
 \section {DP}
 \subsection{Digit DP}
 \begin{lstlisting}

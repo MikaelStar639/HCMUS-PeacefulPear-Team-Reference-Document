@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.10.2)  7 OCT 2025 22:54
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.10.2)  7 OCT 2025 23:08
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -444,7 +444,7 @@ LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <9> not available
 
 
 [17]
-Overfull \hbox (12.86644pt too wide) detected at line 2212
+Overfull \hbox (12.86644pt too wide) detected at line 2287
 [] [] \OT1/cmr/m/n/10.95 = [] = []
  []
 
@@ -478,24 +478,30 @@ Overfull \hbox (12.86644pt too wide) detected at line 2212
 
 
 
-[22] (main.aux)
+[22]
+
+
+
+
+
+[23] (main.aux)
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-09-02>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 6485 strings out of 468129
- 87152 string characters out of 5447453
- 1668625 words of memory out of 5000000
- 35076 multiletter control sequences out of 15000+600000
+ 6509 strings out of 468129
+ 87404 string characters out of 5447453
+ 1752625 words of memory out of 5000000
+ 35100 multiletter control sequences out of 15000+600000
  635816 words of font info for 61 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,13n,65p,352b,2403s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 57i,13n,65p,352b,2408s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\MSI\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1095.pk> <C:\Users\MSI\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt0900.pk> <C:\Users\MSI\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1095.pk> <C:\Users\MSI\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1095.pk> <C:\Users\MSI\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1000.pk><D:/miktex/fonts/type1/public/amsfonts/cm/cmex10.pfb><D:/miktex/fonts/type1/public/amsfonts/cm/cmmi10.pfb><D:/miktex/fonts/type1/public/amsfonts/cm/cmmi8.pfb><D:/miktex/fonts/type1/public/amsfonts/cm/cmr10.pfb><D:/miktex/fonts/type1/public/amsfonts/cm/cmr6.pfb><D:/miktex/fonts/type1/public/amsfonts/cm/cmr8.pfb><D:/miktex/fonts/type1/public/amsfonts/cm/cmsy10.pfb><D:/miktex/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on main.pdf (22 pages, 280412 bytes).
+Output written on main.pdf (23 pages, 282939 bytes).
 PDF statistics:
- 396 PDF objects out of 1000 (max. 8388607)
+ 399 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
