@@ -49,7 +49,7 @@
 % ---------- Main Content ----------
 \begin{multicols*}{2}
 
-\section{Data Structures}
+\section{Data Structures \& Algorithms}
 
 \subsection{Sparse Table}
 \begin{lstlisting}
@@ -284,6 +284,42 @@ struct hash_map {
 } hs;
 \end{lstlisting}
 
+\subsection{Parallel Binary Search}
+\begin{lstlisting}
+while (1){
+    bool ok = 1;
+
+    For(i, 1, q){
+        if (l[i] > r[i]) continue;
+        ok = 1;
+        queries[(l[i] + r[i]) >> 1].push_back(i);
+    }
+
+    reset();
+    For(t, 1, n){
+        //update(t,...);
+        for (int i: queries[t]){
+            if (check(i)) r[i] = t - 1;
+            else l[i] = t + 1;
+        }
+    }
+}
+\end{lstlisting}
+
+\subsection{Ternary Search}
+Find the maximum Point in a Graph like: $\slash\backslash$
+\begin{lstlisting}
+double max_f(double left, double right) {
+    int N_ITER = 100;
+    for (int i = 0; i < N_ITER; i++) {
+        double x1 = left + (right - left) / 3.0;
+        double x2 = right - (right - left) / 3.0;
+        if (f(x1) > f(x2)) right = x2;
+        else left = x1;
+    }
+    return f(left);
+}    
+\end{lstlisting}
 \section {String}
 \subsection{Trie 1}
 \begin{lstlisting}
@@ -2136,6 +2172,16 @@ vector<Point> convexHull(vector<Point> p, int n) {
     \item Number of ways to choose $k$ non-crossing diagonals in a convex $= N(n, k) = \frac{1}{k + 1} \binom{n - 3k}{k}.$
     \item You are given a convex polygon with $n$ sides. You then connect all of the points by drawing lines among the diagonals of the polygon, then cut through the lines all at once. The maximum number of pieces: $R(N) = (n - 1)(n - 2)(n^2 - 3n + 12)/24$
     \item With a circle: $+= n$ ($n$ edges).
+    \item $a/sinA = b/sinB = c/sicC = R$
+    \item Menelaus: a line that cross BC, AC, AB at points D, E, F-> $ AF/FB * BD/DC * CE/EA = 1$
+    \item Ceva: AX, BY, CZ will be concurrent, if: $BX/XC * CY/YA * AZ/ZB = 1$
+    \item Apollonius: Median line AD: $AB^2 + AC^2 = 2(AD^2 + BC^2/4)$
+    \item Euler: $OI^2 = R(R - 2r)$
+    \item Cyclic quadrilateral: $\angle A + \angle C = 180^o$, $AB * CD = AD * BC$, $AC * BD = AB * CD + AD * BC$
+    \item Simson line: the feet of the perpendiculars from a point on a triangle's circumcircle to the sides of the triangle are collinear.
+    \item Triangle: $S = \sqrt{p(p - a)(p - b)(p - c)}$
+    \item Cyclic quadrilateral: 
+    \item $S = \sqrt{(p - a)(p - b)(p - c)(p - d)}$
 \end{itemize}
 
 
