@@ -1259,7 +1259,7 @@ for (int j = 0; j < m; j++)
 cout << dp[0][0] << '\n';
 \end{lstlisting}
 
-\section{Math}
+\section{Number Theory}
 \subsection{Euler's totient function}
 \begin{lstlisting}
 int phi(int n) {
@@ -1459,6 +1459,311 @@ bool RabinMiller(ll n){
 }
 \end{lstlisting}
 
+\subsection{Pollard's Rho prime factorization}
+\begin{itemize}
+    \item Average Time Complexity: $O(\sqrt[4]{N}log^2(N))$
+    \item Space Complexity: $O(logN)$
+\end{itemize}
+\begin{lstlisting}
+using ll = long long;
+using ull = unsigned long long;
+using ld = long double;
+ll mult(ll x, ll y, ll md) {
+    ull q = (ld)x * y / md;
+    ll res = ((ull)x * y - q * md);
+    if (res >= md) res -= md;
+    if (res < 0) res += md;
+    return res;
+}
+
+ll powMod(ll x, ll p, ll md) {
+    if (p == 0) return 1;
+    if (p & 1) return mult(x, powMod(x, p - 1, md), md);
+    return powMod(mult(x, x, md), p / 2, md);
+}
+
+bool checkMillerRabin(ll x, ll md, ll s, int k) {
+    x = powMod(x, s, md);
+    if (x == 1) return true;
+    while (k--) {
+        if (x == md - 1) return true;
+        x = mult(x, x, md);
+        if (x == 1) return false;
+    }
+    return false;
+}
+
+bool isPrime(ll x) {
+    if (x == 2 || x == 3 || x == 5 || x == 7) return true;
+    if (x % 2 == 0 || x % 3 == 0 || x % 5 == 0 || x % 7 == 0) return false;
+    if (x < 121) return x > 1;
+    ll s = x - 1;
+    int k = 0;
+    while (s % 2 == 0) {
+        s >>= 1;
+        k++;
+    }
+    if (x < 1LL << 32) {
+        for (ll z : {2, 7, 61}) {
+            if (!checkMillerRabin(z, x, s, k)) return false;
+        }
+    } else {
+        for (ll z : {2, 325, 9375, 28178, 450775, 9780504, 1795265022}) {
+            if (!checkMillerRabin(z, x, s, k)) return false;
+        }
+    }
+    return true;
+}
+
+mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
+long long get_rand(long long r) {
+    return uniform_int_distribution<long long>(0, r - 1)(rng);
+}
+
+void pollard(ll x, vector<ll> &ans) {
+    if (isPrime(x)) {
+        ans.push_back(x);
+        return;
+    }
+    ll c = 1;
+    while (true) {
+        c = 1 + get_rand(x - 1);
+        auto f = [&](ll y) {
+            ll res = mult(y, y, x) + c;
+            if (res >= x) res -= x;
+            return res;
+        };
+        ll y = 2;
+        int B = 100;
+        int len = 1;
+        ll g = 1;
+        while (g == 1) {
+            ll z = y;
+            for (int i = 0; i < len; i++) {
+                z = f(z);
+            }
+            ll zs = -1;
+            int lft = len;
+            while (g == 1 && lft > 0) {
+                zs = z;
+                ll p = 1;
+                for (int i = 0; i < B && i < lft; i++) {
+                    p = mult(p, abs(z - y), x);
+                    z = f(z);
+                }
+                g = gcd(p, x);
+                lft -= B;
+            }
+            if (g == 1) {
+                y = z;
+                len <<= 1;
+                continue;
+            }
+            if (g == x) {
+                g = 1;
+                z = zs;
+                while (g == 1) {
+                    g = gcd(abs(z - y), x);
+                    z = f(z);
+                }
+            }
+            if (g == x) break;
+            assert(g != 1);
+            pollard(g, ans);
+            pollard(x / g, ans);
+            return;
+        }
+    }
+}
+
+// return list of all prime factors of x (can have duplicates)
+vector<ll> factorize(ll x) {
+    vector<ll> ans;
+    for (ll p : {2, 3, 5, 7, 11, 13, 17, 19}) {
+        while (x % p == 0) {
+            x /= p;
+            ans.push_back(p);
+        }
+    }
+    if (x != 1) {
+        pollard(x, ans);
+    }
+    sort(ans.begin(), ans.end());
+    return ans;
+}
+
+// return pairs of (p, k) where x = product(p^k)
+vector<pair<ll, int>> factorize_pk(ll x) {
+    auto ps = factorize(x);
+    ll last = -1, cnt = 0;
+    vector<pair<ll, int>> res;
+    for (auto p : ps) {
+        if (p == last)
+            ++cnt;
+        else {
+            if (last > 0) res.emplace_back(last, cnt);
+            last = p;
+            cnt = 1;
+        }
+    }
+    if (cnt > 0) {
+        res.emplace_back(last, cnt);
+    }
+    return res;
+}
+\end{lstlisting}
+
+\subsection{Multiplicative Function (Sieve)}
+
+\begin{itemize}
+    \item For all coprimes $n, m \in N$, we have $f(m, n) = f(m)f(n)$
+    \item ex: $I(N) = 1$, $id(n) = n$, $id_k(n) = n^k$, $gcd(n, const)$, $\varphi(n)$, $\mu(n)$, $f_k(n) = \sum_{d|n}d^k$, $\mu(n)$
+    \item Dirichlet Convolution: $h(n) = \sum_{d|n} f(d) \times g(n/d)$ is also a multiplicative function
+\end{itemize}
+
+\begin{lstlisting}
+
+const int MN = 1e6 + 11;
+
+int sieve[MN];         
+pair<int,int> pk[MN];  
+int ndiv[MN];        
+
+int main() {
+    for (int i = 2; i <= 1000; i++)
+        if (!sieve[i]) {
+            for (int j = i*i; j <= 1000000; j += i)
+                sieve[j] = i;
+        }
+
+    ndiv[1] = 1;
+
+    for (int i = 2; i <= 1000000; i++) {
+        if (!sieve[i]) {
+            pk[i] = make_pair(i, 1);
+            ndiv[i] = 2;
+        }
+        else {
+            int p = sieve[i];  
+
+            if (pk[i/p].first == p) {  
+                pk[i] = make_pair(p, pk[i/p].second + 1);
+                ndiv[i] = pk[i].second + 1;  
+            }
+            else {
+                pk[i] = make_pair(-1, 0);
+                int u = i, v = 1;
+                while (u % p == 0) {
+                    u /= p;
+                    v = v * p;
+                }
+                ndiv[i] = ndiv[u] * ndiv[v];
+            }
+        }
+    }
+}
+\end{lstlisting}
+\subsection{Multiplicative Function}
+\begin{lstlisting}
+int n;
+int res = 1;  
+for (int i = 2; i*i <= n; i++) {
+  if (n % i == 0) {
+    int u = 1, k = 0;
+    while (n % i == 0) {
+      n /= i;
+      u = u * i;
+      k += 1;
+    }
+    res = res * f(i, k);
+  }
+}
+
+if (n > 1) {  
+  res = res * f(n, 1);
+}
+\end{lstlisting}
+\subsection{Discrete Logarithm}
+\begin{itemize}
+    \item To find min x that $a^x \equiv b$ (mod $m$)
+    \item Find $ord_m(a)=$ min $x$ that $a^x \equiv 1$ (mod $m$) in $O(\sqrt[4]{m}logm)$
+\end{itemize}
+\begin{lstlisting}
+//gcd(a, m) == 1
+int discrete_log_BSGS_coprime(int a, int b, int m) {
+    a %= m, b %= m;
+    int n = sqrt(m) + 1;
+    unordered_map<int, int> vals;
+    for (int q = 0, cur = b; q <= n; ++q) {
+        vals[cur] = q;
+        cur = 1LL * cur * a % m;
+    }
+    int step = binpow(a, n, m);
+    for (int p = 1, f1 = 1; p <= n; p++) {
+        f1 = 1LL * f1 * step % m;
+        if (vals.count(f1)) {
+            return n * p - vals[f1];
+        }
+    }
+    return -1;
+}
+//gcd != 1
+int discrete_log_BSGS(int a, int b, int m) {
+    a %= m, b %= m;
+    int n = sqrt(m) + 1;
+
+    int k = 1, add = 0, g;
+    while ((g = __gcd(a, m)) > 1) {
+        if (b == k) return add;
+        if (b % g) return -1;
+        b /= g, m /= g, ++add;
+        a %= m;
+        k = (k * 1ll * a / g) % m;
+    }
+    unordered_map<int, int> vals;
+    for (int q = 0, cur = b; q <= n; ++q) {
+        vals[cur] = q;
+        cur = 1LL * cur * a % m;
+    }
+    int step = binpow(a, n, m);
+    for (int p = 1, f1 = k; p <= n; p++) {
+        f1 = 1LL * f1 * step % m;
+        if (vals.count(f1)) {
+            int ans = n * p - vals[f1] + add;
+            return ans;
+        }
+    }
+    return -1;
+}
+
+//ord_m(a):
+using ll = long long;
+ll powMod(ll x, ll p, ll md);
+ll gcd(ll x, ll y);
+vector<ll> factorize(ll x); //Pollard's Rho
+
+ll phi(ll n) {
+    auto ps = factorize(n);
+    ll res = n;
+    ll last = -1;
+    for (auto p : ps) {
+        if (p != last) {
+            res = res / p * (p - 1);
+            last = p;
+        }
+    }
+    return res;
+}
+
+ll ord(ll a, ll m) {
+    if (gcd(a, m) != 1) return -1;
+    ll res = phi(m);
+    auto ps = factorize(res);
+    for (auto p : ps)
+        if (powMod(a, res / p, m) == 1) res /= p;
+    return res;
+}
+\end{lstlisting}
 \section{Geometry}
 \subsection{Dot Product}
 \begin{lstlisting}
@@ -1830,6 +2135,7 @@ vector<Point> convexHull(vector<Point> p, int n) {
     \item Number of ways to choose a set of non-crossing diagonals $C_{n - 2}$
     \item Number of ways to choose $k$ non-crossing diagonals in a convex $= N(n, k) = \frac{1}{k + 1} \binom{n - 3k}{k}.$
     \item You are given a convex polygon with $n$ sides. You then connect all of the points by drawing lines among the diagonals of the polygon, then cut through the lines all at once. The maximum number of pieces: $R(N) = (n - 1)(n - 2)(n^2 - 3n + 12)/24$
+    \item With a circle: $+= n$ ($n$ edges).
 \end{itemize}
 
 
@@ -2382,6 +2688,25 @@ Ctrl + J to use
     \item Ctrl + G → Go to line.
     \item Ctrl + Shift + V → Paste without indentation (useful when pasting code from outside).
 \end{itemize}
+
+\subsection{Multiplication Function}
+\begin{lstlisting}
+ll mult(ll x, ll y, ll md) {
+    ull q = (ld)x * y / md;
+    ll res = ((ull)x * y - q * md);
+    if (res >= md) res -= md;
+    if (res < 0) res += md;
+    return res;
+}
+\end{lstlisting}
+
+\subsection{Random Function}
+\begin{lstlisting}
+mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
+long long get_rand(long long r) {
+    return uniform_int_distribution<long long>(0, r - 1)(rng);
+}
+\end{lstlisting}
 
 \end{multicols*}
 

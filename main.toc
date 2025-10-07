@@ -36,7 +36,7 @@
 \contentsline {subsection}{\numberline {5.5}1D1D Optimization}{9}{}%
 \contentsline {subsection}{\numberline {5.6}Knapsack on Tree}{10}{}%
 \contentsline {subsection}{\numberline {5.7}DP on Broken Profile}{10}{}%
-\contentsline {section}{\numberline {6}Math}{10}{}%
+\contentsline {section}{\numberline {6}Number Theory}{10}{}%
 \contentsline {subsection}{\numberline {6.1}Euler's totient function}{10}{}%
 \contentsline {subsection}{\numberline {6.2}Euler's totient function from $1$ to $N$}{11}{}%
 \contentsline {subsection}{\numberline {6.3}Modular Inverse}{11}{}%
@@ -44,37 +44,43 @@
 \contentsline {subsection}{\numberline {6.5}Diophantine}{11}{}%
 \contentsline {subsection}{\numberline {6.6}Chinese Remainder Theorem}{11}{}%
 \contentsline {subsection}{\numberline {6.7}Rabin-Miller primality test}{12}{}%
-\contentsline {section}{\numberline {7}Geometry}{12}{}%
-\contentsline {subsection}{\numberline {7.1}Dot Product}{12}{}%
-\contentsline {subsection}{\numberline {7.2}Angle}{12}{}%
-\contentsline {subsection}{\numberline {7.3}Cross Product}{12}{}%
-\contentsline {subsection}{\numberline {7.4}Distance from a Point to a line}{12}{}%
-\contentsline {subsection}{\numberline {7.5}Template 1}{12}{}%
-\contentsline {subsection}{\numberline {7.6}Intersection of 2 lines and bla bla bla (I have no time bro)}{13}{}%
-\contentsline {subsection}{\numberline {7.7}Circle passing through 3 points}{13}{}%
-\contentsline {subsection}{\numberline {7.8}Symmetry}{13}{}%
-\contentsline {subsection}{\numberline {7.9}Rotation}{13}{}%
-\contentsline {subsection}{\numberline {7.10}Area of a Polygon}{13}{}%
-\contentsline {subsection}{\numberline {7.11}Relative position of a point to a polygon $O(N)$}{14}{}%
-\contentsline {subsection}{\numberline {7.12}Relative position of a point to a polygon $O(logN)$}{14}{}%
-\contentsline {subsection}{\numberline {7.13}Pick Theorem}{14}{}%
-\contentsline {subsection}{\numberline {7.14}Convex Hull (Graham scan)}{14}{}%
-\contentsline {subsection}{\numberline {7.15}Convex Hull (Monotone chain algorithm)}{15}{}%
-\contentsline {subsection}{\numberline {7.16}More}{15}{}%
-\contentsline {section}{\numberline {8}Algebra}{15}{}%
-\contentsline {subsection}{\numberline {8.1}Matrix Multiplication}{15}{}%
-\contentsline {subsection}{\numberline {8.2}Fast Fourier Transform}{15}{}%
-\contentsline {subsection}{\numberline {8.3}Number Theory Transform}{16}{}%
-\contentsline {section}{\numberline {9}Combinatoric}{16}{}%
-\contentsline {subsection}{\numberline {9.1}Formula}{16}{}%
-\contentsline {subsection}{\numberline {9.2}Catalan}{16}{}%
-\contentsline {subsection}{\numberline {9.3}Derangement}{17}{}%
-\contentsline {subsection}{\numberline {9.4}Classical Sums}{17}{}%
-\contentsline {subsection}{\numberline {9.5}Useful Identities}{17}{}%
-\contentsline {subsection}{\numberline {9.6}Stirling Numbers}{17}{}%
-\contentsline {section}{\numberline {10}Others}{17}{}%
-\contentsline {subsection}{\numberline {10.1}Test?}{17}{}%
-\contentsline {subsection}{\numberline {10.2}Big Int}{17}{}%
-\contentsline {subsection}{\numberline {10.3}CODE::BLOCK Set Up}{19}{}%
-\contentsline {subsection}{\numberline {10.4}Template}{19}{}%
-\contentsline {subsection}{\numberline {10.5}CODE::BLOCK shortcuts}{19}{}%
+\contentsline {subsection}{\numberline {6.8}Pollard's Rho prime factorization}{12}{}%
+\contentsline {subsection}{\numberline {6.9}Multiplicative Function (Sieve)}{13}{}%
+\contentsline {subsection}{\numberline {6.10}Multiplicative Function}{13}{}%
+\contentsline {subsection}{\numberline {6.11}Discrete Logarithm}{14}{}%
+\contentsline {section}{\numberline {7}Geometry}{14}{}%
+\contentsline {subsection}{\numberline {7.1}Dot Product}{14}{}%
+\contentsline {subsection}{\numberline {7.2}Angle}{14}{}%
+\contentsline {subsection}{\numberline {7.3}Cross Product}{14}{}%
+\contentsline {subsection}{\numberline {7.4}Distance from a Point to a line}{14}{}%
+\contentsline {subsection}{\numberline {7.5}Template 1}{15}{}%
+\contentsline {subsection}{\numberline {7.6}Intersection of 2 lines and bla bla bla (I have no time bro)}{15}{}%
+\contentsline {subsection}{\numberline {7.7}Circle passing through 3 points}{15}{}%
+\contentsline {subsection}{\numberline {7.8}Symmetry}{15}{}%
+\contentsline {subsection}{\numberline {7.9}Rotation}{16}{}%
+\contentsline {subsection}{\numberline {7.10}Area of a Polygon}{16}{}%
+\contentsline {subsection}{\numberline {7.11}Relative position of a point to a polygon $O(N)$}{16}{}%
+\contentsline {subsection}{\numberline {7.12}Relative position of a point to a polygon $O(logN)$}{16}{}%
+\contentsline {subsection}{\numberline {7.13}Pick Theorem}{16}{}%
+\contentsline {subsection}{\numberline {7.14}Convex Hull (Graham scan)}{17}{}%
+\contentsline {subsection}{\numberline {7.15}Convex Hull (Monotone chain algorithm)}{17}{}%
+\contentsline {subsection}{\numberline {7.16}More}{17}{}%
+\contentsline {section}{\numberline {8}Algebra}{17}{}%
+\contentsline {subsection}{\numberline {8.1}Matrix Multiplication}{17}{}%
+\contentsline {subsection}{\numberline {8.2}Fast Fourier Transform}{18}{}%
+\contentsline {subsection}{\numberline {8.3}Number Theory Transform}{18}{}%
+\contentsline {section}{\numberline {9}Combinatoric}{19}{}%
+\contentsline {subsection}{\numberline {9.1}Formula}{19}{}%
+\contentsline {subsection}{\numberline {9.2}Catalan}{19}{}%
+\contentsline {subsection}{\numberline {9.3}Derangement}{19}{}%
+\contentsline {subsection}{\numberline {9.4}Classical Sums}{19}{}%
+\contentsline {subsection}{\numberline {9.5}Useful Identities}{19}{}%
+\contentsline {subsection}{\numberline {9.6}Stirling Numbers}{19}{}%
+\contentsline {section}{\numberline {10}Others}{20}{}%
+\contentsline {subsection}{\numberline {10.1}Test?}{20}{}%
+\contentsline {subsection}{\numberline {10.2}Big Int}{20}{}%
+\contentsline {subsection}{\numberline {10.3}CODE::BLOCK Set Up}{21}{}%
+\contentsline {subsection}{\numberline {10.4}Template}{21}{}%
+\contentsline {subsection}{\numberline {10.5}CODE::BLOCK shortcuts}{21}{}%
+\contentsline {subsection}{\numberline {10.6}Multiplication Function}{22}{}%
+\contentsline {subsection}{\numberline {10.7}Random Function}{22}{}%
