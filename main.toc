@@ -51,12 +51,13 @@
 \contentsline {subsection}{\numberline {6.9}Multiplicative Function (Sieve)}{14}{}%
 \contentsline {subsection}{\numberline {6.10}Multiplicative Function}{14}{}%
 \contentsline {subsection}{\numberline {6.11}Discrete Logarithm}{14}{}%
+\contentsline {subsection}{\numberline {6.12}More}{15}{}%
 \contentsline {section}{\numberline {7}Geometry}{15}{}%
 \contentsline {subsection}{\numberline {7.1}Dot Product}{15}{}%
 \contentsline {subsection}{\numberline {7.2}Angle}{15}{}%
 \contentsline {subsection}{\numberline {7.3}Cross Product}{15}{}%
 \contentsline {subsection}{\numberline {7.4}Distance from a Point to a line}{15}{}%
-\contentsline {subsection}{\numberline {7.5}Template 1}{15}{}%
+\contentsline {subsection}{\numberline {7.5}Template 1}{16}{}%
 \contentsline {subsection}{\numberline {7.6}Intersection of 2 lines and bla bla bla (I have no time bro)}{16}{}%
 \contentsline {subsection}{\numberline {7.7}Circle passing through 3 points}{16}{}%
 \contentsline {subsection}{\numberline {7.8}Symmetry}{16}{}%

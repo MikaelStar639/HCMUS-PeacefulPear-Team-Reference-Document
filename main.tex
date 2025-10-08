@@ -1876,6 +1876,15 @@ ll ord(ll a, ll m) {
     return res;
 }
 \end{lstlisting}
+\subsection{More}
+\begin{itemize}
+    \item $1^2 + ... + n^2 = n(n + 1)(2n + 1)/6$
+    \item $1^3 + ... + n^3 = (n(n + 1)/2)^2$
+    \item $1^4 + ... + n^4 = n(n + 1)(2n + 1)(3n^2 + 3n - 1)/30 $
+    \item $1^5 + ... + n^5 = n^2(n+1)^2(2n^2+2n-1)/12$
+\end{itemize}
+
+
 \section{Geometry}
 \subsection{Dot Product}
 \begin{lstlisting}
@@ -2422,11 +2431,7 @@ Matrix Pow(Matrix A, int b){
 
 \subsection{Fast Fourier Transform}
 \begin{lstlisting}
-
-
-
 namespace FFT{
-    
     #define cd complex<long double>
     #define vc vector<cd>
 
@@ -2472,7 +2477,6 @@ namespace FFT{
         rep(i, n){
             rev[i] = (rev[i >> 1] | (i & 1) << L) >> 1;
         }
-
 
         fa.resize(n); fb.resize(n);
 
