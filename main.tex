@@ -1876,12 +1876,41 @@ ll ord(ll a, ll m) {
     return res;
 }
 \end{lstlisting}
+\subsection{Primitive Root (For NTT)}
+$g$ is a primitive root modulo $n$ if $ord_n(g)=\varphi(n)$. Primitive root is existed only when $n \in {2, 4, p^k, 2p^k}$ with $p$ is an odd prime.
+\begin{lstlisting}
+bool is_primitive_root(ll g, ll p, const vector<ll>& factors) {
+    for (ll q : factors)
+        if (modpow(g, (p - 1) / q, p) == 1)
+            return false;
+    return true;
+}
+
+ll primitive_root(ll p) {
+    vector<ll> factors;
+    ll phi = p - 1, n = phi;
+    for (ll i = 2; i * i <= n; i++) {
+        if (n % i == 0) {
+            factors.push_back(i);
+            while (n % i == 0) n /= i;
+        }
+    }
+    if (n > 1) factors.push_back(n);
+
+    for (ll g = 2; g < p; g++)
+        if (is_primitive_root(g, p, factors))
+            return g;
+    return -1; 
+}
+\end{lstlisting}
 \subsection{More}
 \begin{itemize}
     \item $1^2 + ... + n^2 = n(n + 1)(2n + 1)/6$
     \item $1^3 + ... + n^3 = (n(n + 1)/2)^2$
     \item $1^4 + ... + n^4 = n(n + 1)(2n + 1)(3n^2 + 3n - 1)/30 $
     \item $1^5 + ... + n^5 = n^2(n+1)^2(2n^2+2n-1)/12$
+    \item $n$ is a prime $\Leftrightarrow (n - 1)! \equiv n - 1$ (mod $n$)
+    \item 
 \end{itemize}
 
 
@@ -2495,10 +2524,12 @@ namespace FFT{
 \end{lstlisting}
 
 \subsection{Number Theory Transform}
+(MOD, g) can be replaced by (998244353, 3), (7340033, 3), (469762049, 3), (167772161, 3), (1004535809, 3), (1224736769, 3), (2013265921, 31), (469762049, 22), (104857601, 3)
 \begin{lstlisting}
 namespace NTT{
-    const int MOD = 998244353;
+    const int MOD = 998244353; //prime that has form: k * 2^m + 1
     const int g = 3; //primitive root
+    //primitive root g that g ^ {(MOD - 1)/p_i} != 1 for all prime p_i | (MOD - 1)
     int rev[N];
 
     void ntt(vi &a, bool inverse = 0){
