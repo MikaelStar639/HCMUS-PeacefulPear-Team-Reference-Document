@@ -82,10 +82,11 @@
 \contentsline {subsection}{\numberline {9.4}Classical Sums}{21}{}%
 \contentsline {subsection}{\numberline {9.5}Useful Identities}{21}{}%
 \contentsline {subsection}{\numberline {9.6}Stirling Numbers}{22}{}%
+\contentsline {subsection}{\numberline {9.7}Lucas Theorem}{22}{}%
 \contentsline {section}{\numberline {10}Others}{22}{}%
 \contentsline {subsection}{\numberline {10.1}Test?}{22}{}%
 \contentsline {subsection}{\numberline {10.2}Big Int}{22}{}%
-\contentsline {subsection}{\numberline {10.3}CODE::BLOCK Set Up}{23}{}%
+\contentsline {subsection}{\numberline {10.3}CODE::BLOCK Set Up}{24}{}%
 \contentsline {subsection}{\numberline {10.4}Template}{24}{}%
 \contentsline {subsection}{\numberline {10.5}CODE::BLOCK shortcuts}{24}{}%
 \contentsline {subsection}{\numberline {10.6}Multiplication Function}{24}{}%

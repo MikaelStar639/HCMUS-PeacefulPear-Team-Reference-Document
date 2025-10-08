@@ -1910,7 +1910,6 @@ ll primitive_root(ll p) {
     \item $1^4 + ... + n^4 = n(n + 1)(2n + 1)(3n^2 + 3n - 1)/30 $
     \item $1^5 + ... + n^5 = n^2(n+1)^2(2n^2+2n-1)/12$
     \item $n$ is a prime $\Leftrightarrow (n - 1)! \equiv n - 1$ (mod $n$)
-    \item 
 \end{itemize}
 
 
@@ -2676,6 +2675,29 @@ S(n,k) = S(n-1,k-1) + k S(n-1,k)
 \[
 x^n = \sum_{k=0}^n S(n,k)(x)_k, \quad (x)_k = x(x-1)\cdots(x-k+1)
 \]
+
+\subsection{Lucas Theorem}
+if $p$ is a prime number, $n = n_t p^t + n_{t-1} p^{t-1} + \cdots + n_0$
+and $k = k_t p^t + k_{t-1} p^{t-1} + \cdots + k_0$, 
+then $\binom{n}{k} \equiv \prod_{i=0}^{t} \binom{n_i}{k_i} \pmod{p}$
+\begin{lstlisting}
+
+vector<int> getRepresentation(int N) {
+    vector<int> res;
+    while (N > 0) {
+        res.push_back(N % M);
+        N /= M;
+    }
+    return res;
+}
+
+vector<int> n = getRepresentation(N);
+vector<int> k = getRepresentation(K);
+long long res = 1;
+for (int i = 0; i < k.size(); ++i) {
+    res = (res * C(n[i], k[i])) % M;
+}
+\end{lstlisting}
 
 \section{Others}
 \subsection{Test?}
