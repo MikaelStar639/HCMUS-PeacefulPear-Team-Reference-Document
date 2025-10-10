@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1759912457.30528 "e:/ICPC training/nah/HCMUS-PeacefulPear-Team-Reference-Document/main.tex" "main.pdf" "main" 1759912459.19661 0
+["pdflatex"] 1760102686.97769 "e:/ICPC training/nah/HCMUS-PeacefulPear-Team-Reference-Document/main.tex" "main.pdf" "main" 1760102688.71402 0
   "C:/Users/MSI/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1759678554 88371 b965f57369ed322039596060d18f4416 ""
   "C:/Users/MSI/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx1095.pk" 1759373788 28976 b5778e2851ee8a81c1f3de4b03dd340b ""
   "C:/Users/MSI/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecrm1000.pk" 1759373482 23808 e290c919493c4bebbedbd954f56faec0 ""
@@ -65,10 +65,10 @@
   "D:/miktex/tex/latex/titlesec/titlesec.sty" 1736608268 48766 87a17a4ef312a39cd43896e34a679a56 ""
   "D:/miktex/tex/latex/tools/multicol.sty" 1749468414 33259 db80f750a01491473161bd4d0f6986d2 ""
   "D:/miktex/tex/latex/xcolor/xcolor.sty" 1729265222 55384 b454dec21c2d9f45ec0b793f0995b992 ""
-  "e:/ICPC training/nah/HCMUS-PeacefulPear-Team-Reference-Document/main.tex" 1759912456 74331 76d6eb1fc35bc6afc9aded2d4654b706 ""
-  "main.aux" 1759912459 10188 cd707489ff9ef351203c46e3350ead73 "pdflatex"
-  "main.tex" 1759912456 74331 76d6eb1fc35bc6afc9aded2d4654b706 ""
-  "main.toc" 1759912459 6342 1370a1839d2c0450fd66247400374696 "pdflatex"
+  "e:/ICPC training/nah/HCMUS-PeacefulPear-Team-Reference-Document/main.tex" 1760102684 76855 09d38a9278e0fd7acc1a2eec3920018b ""
+  "main.aux" 1760102688 10719 a8b1e802d1f558d200b2ca727d1e2d94 "pdflatex"
+  "main.tex" 1760102684 76855 09d38a9278e0fd7acc1a2eec3920018b ""
+  "main.toc" 1760102688 6668 f9549e4b15a7c68d35cc9ae0efc713fe "pdflatex"
   (generated)
   "main.aux"
   "main.log"

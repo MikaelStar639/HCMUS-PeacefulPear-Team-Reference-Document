@@ -582,7 +582,36 @@ void dfs(int u) {
     }
 }
 \end{lstlisting}
+\subsection{Biconnected Components}
+\begin{lstlisting}
+vector<ii> st;
 
+void dfs(int u, int p) {
+    num[u] = low[u] = ++timer;
+    for (int v : g[u]) {
+        if (v == p) continue;
+        if (!num[v]) {
+            st.emplace_back(u, v);
+            dfs(v, u);
+            low[u] = min(low[u], low[v]);
+            if (low[v] >= num[u]) {
+                vector<int> comp;
+                while (1) {
+                    auto e = st.back(); st.pop_back();
+                    comp.push_back(e.fi);
+                    comp.push_back(e.se);
+                    if (e.fi == u && e.se == v) break;
+                }
+                sort(all(comp));
+                comp.erase(unique(all(comp)), comp.end());
+            }
+        } else if (num[v] < num[u]) {
+            low[u] = min(low[u], num[v]);
+            st.emplace_back(u, v);
+        }
+    }
+}
+\end{lstlisting}
 \subsection{Topology Sort 1}
 \begin{lstlisting}
 //u -> v
@@ -2698,6 +2727,79 @@ for (int i = 0; i < k.size(); ++i) {
     res = (res * C(n[i], k[i])) % M;
 }
 \end{lstlisting}
+
+\section{Game Theory}
+\subsection{P and N set}
+N and P have to satisfy:
+\begin{itemize}
+    \item set P must contain all final states
+    \item for each state s in N, there exists at least 1 s' reachable from s that belongs to P
+    \item for each state s in P, all states s' reachable from s must belong to N
+\end{itemize}
+\begin{lstlisting}
+bool isInP(State u) {
+    //T = end state
+    if (u in T) return true;
+
+    //S = states
+    for (State v in S)
+        if (u, v) in Q and isInP(v)
+            return false; 
+
+    return true; 
+}
+
+//example in Nim-3:
+bool isInP(int u) {
+    if (dp[u] != -1) return dp[u];
+    if (u == 0) return dp[u] = 1;
+    
+    for (int v = u - 1; v >= max(u - 3, 0); v--)
+        if (isInP(v)) {
+            return dp[u] = 0;
+        }
+
+    return dp[u] = 1;
+}
+
+if (!isInP(n)) cout << "A win";
+else cout << "B win";
+
+\end{lstlisting}
+\subsection{NIM}
+if $p_1$ xor $p_2$ xor ... xor $p_n = 0$, then $B$ will win, else, A will win.
+\begin{lstlisting}
+bool isInP(vector<int> v) {
+    int g = 0;
+    for (auto p: v) g ^= p;
+    return (g == 0);
+}
+\end{lstlisting}
+\subsection{Sprague-Grundy}
+
+\begin{itemize}
+    \item Grundy function: $g(x) = mex(\{g[y] : (x, y) \in Q\})$
+    \item B win if $g(n) = 0$
+\end{itemize}
+\begin{lstlisting}
+int mex(vector<int>& U) {
+    int res = 0;
+    sort(U.begin(), U.end());
+    for (int x: U)
+        if (res == x)
+            ++res;
+    return res;
+}
+
+int g(state x){
+    vector<int> U;    
+    for (state y: g[x]){
+        U.push_back(g(y))
+    }
+    return mex(U);
+}
+\end{lstlisting}
+
 
 \section{Others}
 \subsection{Test?}
