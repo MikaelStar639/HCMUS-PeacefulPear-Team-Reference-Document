@@ -700,7 +700,32 @@ int main(){
     return 0;
 }
 \end{lstlisting}
+\subsection{Project Selection Problem}
+"You are given a set of $N$ projects and $M$ machines. The $i$-th machine costs $q_i$. 
+The $i$-th project yields $p_i$ revenue. Each project requires a set of machines. 
+If multiple projects require the same machine, they can share the same one. 
+Choose a set of machines to buy and projects to complete such that the sum of the revenues 
+minus the sum of the costs is maximized."
 
+*The source as $S$, the sink as $T$, the $i$-th project as $P_i$ and the 
+$i$-th machine as $M_i$. Then, add edges of weight $p_i$ between the source and the 
+$i$-th project, edges of weight $q_i$ between the $i$-th machine and the sink, and edges 
+of weight $\infty$ between each project and each of its required machines.
+\begin{lstlisting}
+int res = total of p[i];
+//source -> projects
+//machines -> sink
+rep(i, m){
+    int u, v; cin >> u >> v;
+    add_edge(u, v, INF);
+}
+while (bfs()){
+    memset(lazy, 0, sizeof lazy);
+    while (int del = dfs(0, INF)){
+        res -= del; //min cut
+    }
+}
+\end{lstlisting}
 \subsection{Bipartite Matching}
 \begin{lstlisting}
 bool dfs(int u){
@@ -773,6 +798,13 @@ while (bfs()){
 		
 
 \end{lstlisting}
+
+\subsection{FLow Theorems}
+\begin{itemize}
+    \item Maximum Matching = Minimum Vertex Cover (subset of vertices in a graph where every edge in the graph is connected to at least one vertex in the subset)
+    \item Perfect Matching X: when for S $\subseteq$ X: $|N(S)| >= |S|$ 
+    \item $M_{max} + C_{min} = |V|$ 
+\end{itemize}
 
 \subsection{HLD}
 \begin{lstlisting}
@@ -3025,19 +3057,6 @@ struct BigInt {
 };
 
 \end{lstlisting}
-
-\subsection{CODE::BLOCK Set Up}
-*
-
-Settings -> Compiler… -> Selected compiler: GNU GCC Compiler
-
-Have g++ follow the C++17 ISO C++ language standard [-std=c++17]
-
-Enable all common compiler warnings (-Wall)
-
-Enable extra compiler warnings (-Wextra)
-
--O2
 
 \subsection{Template}
 
